@@ -1,0 +1,12 @@
+
+
+
+
+
+function IsHeader(){
+    
+}
+
+function chackeCookie(){
+
+}

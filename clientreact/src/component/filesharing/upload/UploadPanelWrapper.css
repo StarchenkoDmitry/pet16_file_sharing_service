@@ -1,0 +1,21 @@
+.wrapper-uploadPanel{
+  display: flex;
+  position: fixed;
+
+  justify-content: center;
+  align-items: end;
+
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  
+  pointer-events: none;
+}
+
+.wrapper-uploadPanel-inner{
+  display: flex;
+
+  width: 500px;
+  pointer-events: all;
+}

@@ -1,0 +1,37 @@
+.fileManager{
+  display: flex;
+  flex-direction: column;
+  padding: .5rem;
+  flex: 1;
+
+  min-height: 16rem;
+  
+  border-radius: 1rem 1rem 1rem 1rem;
+  background-color: rgb(255 255 255);
+  box-shadow: 0px 0px 20px 1px #d2daff;
+}
+
+.fileManager-head{
+  display: flex;
+  justify-content: space-between;
+  margin: .5rem;
+}
+
+.btn-addfiles{
+
+}
+
+.btn-urlid-copy{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
+}
+
+.btn-urlid-copy img{
+  margin-left: .4rem;
+  width: 20px;
+  height: 20px;
+}
+
+

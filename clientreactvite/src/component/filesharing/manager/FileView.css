@@ -1,0 +1,172 @@
+
+.filesList-item{
+  display: flex;
+  align-items: center;
+
+  margin-top: 0.5rem;
+  padding: 0.25rem;
+
+  font-size: 1rem;
+  font-family: "JetBrains Mono",monospace;
+  cursor: default;
+
+  transition: box-shadow .15s,transform .15s;
+  box-shadow: 0px 0px 6px 4px #f0f3fd;
+
+  border-radius: 0.4rem;
+  background-color: rgb(255 255 255);  
+}
+.filesList-item:hover{
+  /* padding: 0.4rem; */
+  
+  box-shadow: 0px 0px 6px 4px #9db4ff;
+
+  border-radius: 0.4rem;
+  background-color: rgb(255 255 255);
+}
+
+
+.filesList-item .name{
+  margin-right: auto;
+
+  white-space: nowrap; /* Запрещаем перенос строк */
+  overflow: hidden; /* Обрезаем все, что не помещается в область */
+  text-overflow: ellipsis;
+}
+.filesList-item .size{
+  padding: .15625rem;
+  /* height: 1.5rem; */
+  width: 5.5rem;
+  text-align:end;
+
+  box-shadow: 0px 0px 6px 4px #d2eaff;
+  border-radius: 0.4rem;
+}
+
+.filesList-item .download{
+  margin: 0 .25rem;
+  margin-left: .5rem;
+
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.filesList-item .delete{
+  margin: 0 .25rem;
+
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.download img{
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* width: 20px;
+  height: 20px; */
+}
+
+.delete img{
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* width: 20px;
+  height: 20px; */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* .glas-btn2{
+  padding: .1rem;
+
+  transition: all 150ms ease-in-out;
+  border: none;
+  background-color: #ffffff00;  
+}
+
+.glas-btn2:hover {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+  transform: translate3d(0, 2px, 0);
+}
+
+.glas-btn2:focus {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .fileUpView{
+  display: flex;
+  margin: .25rem;
+  padding: .3rem;
+
+  border-radius: .5rem;
+
+  font-size: 1.125rem;
+  font-weight: 400;
+
+  color: #ffffff;
+  background-color: #0d5aff;
+}
+
+.fileUpView .name{  
+  flex: 1;
+  padding: .1rem .3rem;
+  border-radius: .3rem;
+  background-color: #44b3ff;
+}
+.fileUpView .size{
+  margin-left: .3rem;
+  padding: .1rem 1rem;
+  padding-left: 0;
+  padding-right: .1rem;
+  border-radius: .3rem;
+  background-color: gold;
+  width: 90px;
+}
+
+
+.fileUpView .cancel{
+  margin-left: .3rem;
+  border-radius: .3rem;
+  background-color: rgb(70, 30, 27);
+  width: 80px;
+}
+
+
+.fileUpView .download{
+  margin-left: .3rem;
+  border-radius: .3rem;
+  background-color: rgb(99 255 232);
+}
+
+ */

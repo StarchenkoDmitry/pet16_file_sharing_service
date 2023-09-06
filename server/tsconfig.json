@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "module": "ES2022",   
+        "target": "ES2020",
+        "moduleResolution": "node",
+
+        "lib":["ES2020"],
+
+        "removeComments": true,
+
+        "sourceMap": false,
+        "rootDir": "./src",
+        "outDir": "./build",
+
+        "allowJs":true,
+        "strict": true,
+        "noImplicitAny": true,    
+
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"],
+    "ts-node": {
+        "esm": true, // «———— enabling ESM for ts-node   
+    },
+}

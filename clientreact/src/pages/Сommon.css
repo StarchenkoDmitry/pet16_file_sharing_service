@@ -1,0 +1,31 @@
+/*REGION Uploadid*/
+.main-block{
+  /* display: block;
+  flex: 1; */
+
+  margin-top: 1rem;
+  margin-bottom: 4rem;
+
+  border-radius: 1rem 1rem 1rem 1rem;
+  background-color: rgb(255 255 255);
+  box-shadow: 0px 0px 20px 1px #d2daff;
+}
+
+.main-contaner{
+  display: flex;
+  padding: .25rem;
+}
+
+
+.block-left{
+  display: flex;
+  margin: .4rem;
+  /* flex: none; */
+  width: 16rem;
+}
+
+
+.block-right{
+  margin: .4rem;
+  flex: 1;
+}

@@ -1,0 +1,20 @@
+.upload-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin: 10px;
+  padding: 10px;
+  
+  flex: 1;
+
+  min-width: 100px;
+  max-height: 200px;
+
+  background-color: #3086e2;
+}
+
+.upload-container span{
+  padding: .25rem;
+}

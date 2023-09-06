@@ -1,0 +1,46 @@
+.downloadPanel{
+  flex: 1;
+
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+
+  border-radius: 1rem 1rem 1rem 1rem;
+  background-color: rgb(255 255 255);
+  box-shadow: 0px 0px 20px 1px #d2daff;
+}
+
+.donwloadPanel-head{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.donwloadPanel-head .counter{
+  padding: 0.15625rem;
+  /* height: 1.5rem; */
+  width: 5.5rem;
+  text-align: end;
+  box-shadow: 0px 0px 6px 4px #ecccff;
+  border-radius: 0.4rem;
+
+  text-align: center;
+}
+
+.donwloadPanel-list{
+
+  /* min-height: 100px; */
+  /* height: auto; */
+  /* transition: all 1s ease-out; */
+  /* transition: height 4s; */
+}
+
+.downloadPanel-item{
+  margin-top: 0.5rem;
+  padding: 0.4rem;
+  border-radius: 0.4rem;
+  background-color: rgb(255 255 255);
+  box-shadow: 0px 0px 6px 4px #f0f3fd;
+
+  /* transform: scaleY(0.7);
+  transition: transform 4s ease-in-out; */
+}

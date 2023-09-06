@@ -1,0 +1,51 @@
+.tableUpList{
+  display: flex;
+  margin: 0.25rem;
+  padding: 0.3rem;
+  border-radius: .5rem;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #ffffff;
+  background-color: #44c5ec;
+}
+.tableUpList .name{
+  flex: 1;
+  padding: .1rem .2rem;
+  border-radius: .3rem;
+  background-color: #0f88ff;
+}
+.tableUpList .size{
+  width: 90px;
+  margin-left: .3rem;
+  padding: .1rem 1rem;
+  padding-left: 0;
+  padding-right: .1rem;  
+  border-radius: .3rem;
+  text-align: center;
+  background-color: gold;
+}
+
+.tableUpList .action{
+  width: 80px;
+  margin-left: .3rem;
+  border-radius: .3rem;
+  text-align: center;
+  background-color: rgb(194, 39, 255);
+}
+
+
+
+
+
+.filesList{
+  margin: .5rem;
+
+  margin-top: 1rem;
+}
+
+/* .filesList-head{
+}
+.filesList-head .name{
+} */
+
+
