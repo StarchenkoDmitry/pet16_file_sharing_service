@@ -118,7 +118,11 @@
 .toggle100_label:active:after {
   /* width: 130px; */
 }
+.header-main:is(.dark) .toggle100:checked + .toggle100_label
+{
 
+  box-shadow: 0px 0px 6px 1px #3535ff;
+}
 
 
 
