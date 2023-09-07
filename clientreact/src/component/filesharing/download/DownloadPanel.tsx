@@ -7,7 +7,7 @@ import downloadStore, { DownloadStatus } from '../stores/DownloadStore';
 
 const TimeToClosePanel = 1500;
 
-const MaxRenderFiles = 10;  
+const MaxRenderFiles = 2;  
 
 const DownloadPanel: FC = observer(()=>{
     // console.log("Rendering DownloadPanel");

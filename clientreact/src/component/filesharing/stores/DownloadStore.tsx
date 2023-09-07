@@ -53,8 +53,8 @@ class DownloadStore{
     }
 
     private async Init(){
-        // this._promis_clinning = setInterval(this.Clinning.bind(this),
-        // TimeClinning);
+        this._promis_clinning = setInterval(this.Clinning.bind(this),
+        TimeClinning);
     }
 
     dispose(){

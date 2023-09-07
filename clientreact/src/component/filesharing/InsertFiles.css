@@ -1,20 +1,32 @@
-.upload-container{
+.insertFiles{
   display: flex;
   flex-direction: column;
+
   justify-content: center;
   align-items: center;
-
-  margin: 10px;
-  padding: 10px;
   
   flex: 1;
+  /* min-width: 100px;
+  max-height: 200px; */
 
-  min-width: 100px;
-  max-height: 200px;
+  border-radius: 1rem 1rem 1rem 1rem;
+  box-shadow: 0px 0px 20px 1px #d2daff;
 
-  background-color: #3086e2;
+  border-width: 0.25em;
+  border-style: dashed;
+  border-radius: 1em;
+  border-color: #d35eff70;
+}
+.insertFiles span{  
+  font-family: "JetBrains Mono",monospace;
+  padding: .25rem;
 }
 
-.upload-container span{
-  padding: .25rem;
+
+
+
+#root:is(.dark) .insertFiles{
+  color: var(--color1);
+  background-color: var(--back_color1);
+  box-shadow: 0px 0px 20px 1px var(--dark_shadow_color);
 }

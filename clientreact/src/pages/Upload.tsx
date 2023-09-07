@@ -3,9 +3,7 @@ import './Сommon.css';
 import MainLayer from "../component/layer/MainLayer";
 import ChoseUrl from "../component/filesharing/ChoseUrl";
 import { useParams, useSearchParams } from "react-router-dom";
-import UploadFiles from "../component/filesharing/UploadFiles";
 import FileManager from '../component/filesharing/manager/FileManager';
-import DownloadPanel from '../component/filesharing/download/DownloadPanel';
 import UploadPanel from '../component/filesharing/upload/UploadPanel';
 
 

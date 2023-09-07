@@ -53,7 +53,7 @@ export default function InsertFiles() {
     }
 
     return (
-        <div className="upload-container" onDrop={onDropHandler} onDragOver={onDragOver}>
+        <div className="insertFiles" onDrop={onDropHandler} onDragOver={onDragOver}>
             <span>Переместите сюда только файлы.</span>
             <span>Ограничение размера файла 126 MB.</span>
         </div>
