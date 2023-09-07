@@ -7,12 +7,13 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Upload from './pages/Upload';
 
+const ROOT:HTMLElement = document.getElementById('root') as HTMLElement;
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(<App />);
-
 
 
 function App(){

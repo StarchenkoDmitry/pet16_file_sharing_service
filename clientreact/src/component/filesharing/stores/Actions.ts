@@ -73,26 +73,40 @@ export function DeleteFilePromise(urlid:string, fileid:string):Promise<boolean>{
 }
 
 
-export async function DownloadFile(file:DownloadData):Promise<Buffer> {
+export function DownloadFile(file:DownloadData):Promise<Buffer> {
     return new Promise<Buffer>(async(resolve,reject)=>{
         try {
             const res = await api.get(GetBackendURL(`/downloadfile/${file.fileData.bufferID}`),{
                 responseType: 'arraybuffer',
+                signal: file.signalAbort?.signal,
                 onDownloadProgress(progressEvent) {
                     file.downloadLoaded = progressEvent.loaded;
                     file.downloadSize = progressEvent.total || 0;
                     file.downloadProc = progressEvent.progress || 0;
-                    console.log("onDownloadProgress: ",progressEvent);
+                    // console.log("onDownloadProgress: ",progressEvent);
                 },
             });
             if(res.status === 200){
                 resolve(res.data as Buffer);
-            }else{                
+            }else{
                 reject();
             }
-        } catch (error) {
+        } catch (error:any) {
+            //name "CanceledError"
+            //code "ERR_CANCELED"
+            //message "canceled"
             console.log("DownloadFile error 456893-5394954-35: ",error);
-            reject();
+            if(typeof error === "object"){
+                if(error.code === "ERR_CANCELED"){
+                    reject("canceled");
+                }
+                else{
+                    reject();
+                }
+            }
+            else{
+                reject();
+            }
         }
     });
 }

@@ -1,31 +1,25 @@
-/* .header-main {
-  display: flex;  
-  margin: .5rem;
-  padding: .5rem;
-  border-radius: 1rem;
-  background-color: rgb(106, 204, 243);
-}
-
-.header-main_title{
-  padding: .25rem;
-  font-size: 1.35rem;
-  font-weight: 500;
-}
-
-.header-main_logo{
-  margin: 0.2rem;
-  padding: 0.2rem;
-  background-color: rgb(241, 85, 163);
-} */
-
 .header-main{
-
-  padding: .75rem;
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  padding: .75em;
+  padding-top: 0.4em;
   
   border-radius: 0 0 1rem 1rem;
   background-color: rgb(255 255 255);
   box-shadow: 0px 0px 20px 1px #d2daff;
 }
+
+.header-main .left{
+  display: flex;
+  /* align-items: end; */
+}
+
+.header-main .right{
+  display: flex;
+  align-items: center;
+}
+
 
 
 .header-main .mainName{
@@ -38,8 +32,6 @@
   /* font-weight: 500; */
   text-decoration: none;
 }
-
-
 .header-main .mainName:hover{
   border-radius: 0.4rem;
   /* background-color: rgb(255 255 255); */
@@ -53,15 +45,96 @@
   padding: 0.25rem;
 
   color: black;
-  font-family: 'Courier New', Courier, monospace;
   font-weight: 500;
   font-size: 1rem;
   text-decoration: none;
 } 
-
 .header-main .link:hover{
   border-radius: 0.1rem;
   /* background-color: rgb(255 255 255); */
   box-shadow: 0px 0px 6px 4px #dde4fb;
 }
+
+
+
+.right .theme{
+
+  margin: .5rem;
+  padding: 0.25rem;
+
+  color: black;
+  font-weight: 500;
+  font-size: 1rem;
+  text-decoration: none;
+
+  cursor: default;
+}
+
+
+
+
+
+
+.toggle100{
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+.toggle100_label {
+  display: block;
+  position: relative;
+
+  /* text-indent: -9999px; */
+  width: 2.5em;
+  height: 1.5em;
+
+  border-radius: 1em;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 0px 6px 1px #7978cb;
+
+  cursor: pointer;
+}
+.toggle100_label:after {
+  content: '';
+  position: absolute;
+  top: .2em;
+  left: .2em;
+
+  width: 1rem;
+  height: 1rem;
+
+  background: #5347ff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+.toggle100:checked + .toggle100_label {
+  background: #000000;
+  box-shadow: 0px 0px 6px 1px #e3e3fd;
+}
+.toggle100:checked + .toggle100_label:after {
+  left: calc(100% - .2em);
+  transform: translateX(-100%);
+}
+.toggle100_label:active:after {
+  /* width: 130px; */
+}
+
+
+
+
+
+
+
+.header-main:is(.dark){
+  background-color: var(--back_color1);
+  box-shadow: 0px 0px 12px 2px var(--dark_shadow_color);
+}
+
+.header-main:is(.dark) a{
+  color: var(--color1);
+}
+.header-main:is(.dark) span{
+  color: var(--color1);
+}
+
 

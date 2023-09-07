@@ -1,7 +1,10 @@
 .fileManager{  
-  padding: .5rem;
+  display: flex;
+  flex-direction: column;
+
   flex: 1;
 
+  padding: .5rem;
   min-height: 16rem;
   
   border-radius: 1rem 1rem 1rem 1rem;
@@ -32,3 +35,18 @@
 }
 
 
+
+
+
+#root:is(.dark) .fileManager{
+  color: var(--color1);
+  background-color: var(--back_color1);
+  box-shadow: 0px 0px 20px 1px var(--dark_shadow_color);
+}
+/* #root:is(.dark) .choseurl-list-item{
+  box-shadow: 0px 0px 20px 1px var(--dark_shadow_color);
+}
+#root:is(.dark) .choseurl a{
+  color: var(--color1);
+  background-color: var(--back_color1);
+} */

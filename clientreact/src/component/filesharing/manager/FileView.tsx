@@ -12,7 +12,7 @@ interface Props{
     canDeleteFiles:boolean;
 }
 
-const FileViewObserver =  observer(({file,canDeleteFiles}:Props) =>{
+const FileView = observer(({file,canDeleteFiles}:Props) =>{
     // console.log(`Render FileView(${file.id})`);
 
     const bufferIDisNull = file.bufferID === null;
@@ -45,7 +45,6 @@ const FileViewObserver =  observer(({file,canDeleteFiles}:Props) =>{
     )
 });
 
-const FileView = FileViewObserver;
 export default FileView;
 
 

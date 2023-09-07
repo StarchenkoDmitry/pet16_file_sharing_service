@@ -25,10 +25,12 @@ export interface FileOnUpload{
 
     status: FileStatus;
 
-    total: number;
-    loaded: number;
-    procentUploaded: number;
+    signalAbort?: AbortController;
 
+    uploadLoaded: number;
+    uploadSize: number;
+    uploadProc: number;
+    
     onUpdateProcent?: EventOnUpdateProcent;
 }
 

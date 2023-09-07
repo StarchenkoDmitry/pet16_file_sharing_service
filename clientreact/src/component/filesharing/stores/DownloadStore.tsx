@@ -27,6 +27,8 @@ export interface DownloadData{
     downloadSize:number
     downloadProc:number;
 
+    signalAbort?: AbortController;
+
     timeEnd: number;
 
     onDownloadProgress?:EventOnDownloadProgress;
@@ -48,13 +50,11 @@ class DownloadStore{
     constructor(){
         makeAutoObservable(this);
         this.Init();
-        // console.log("constructor files: ",this.files);
     }
 
     private async Init(){
-        // console.log("Init files: ",this.files);
-        this._promis_clinning = setInterval(this.Clinning.bind(this),
-        TimeClinning);
+        // this._promis_clinning = setInterval(this.Clinning.bind(this),
+        // TimeClinning);
     }
 
     dispose(){
@@ -67,8 +67,13 @@ class DownloadStore{
     getCountDownloadError ():number{ return this.countDownloadError; }
     getCountFiles ():number{ return this.files.length; }
 
-    getCountDownloadAndDownloading():number{
+    getCountDownloadDownloading():number{
         return this.countDownload + this.countDownloading;
+    }
+
+    getCountAll():number{
+        return this.countDownload+this.countDownloading+
+        this.countDownloaded+this.countDownloadError;
     }
 
     //TODO: не уверен рабочий ли код
@@ -79,11 +84,14 @@ class DownloadStore{
         this.files = [...files,...file];
     }
 
-    delid(id:string){
-        console.log("delid: ",id);
-        this.files = this.files.filter((f)=>f.fileid !== id);
+    cancel(file:DownloadData){
+        console.log("donwload cancel: ",file);
+        // this.files = this.files.filter((f)=>f.fileid !== id);
+        if(file.status === DownloadStatus.download || file.status === DownloadStatus.downloading){
+            
+            file.signalAbort?.abort();
+        }
     }
-
 
 //#region Clinning
     private _promis_clinning :any = undefined;
@@ -125,7 +133,7 @@ class DownloadStore{
 
     private _pomise_pre_download : Promise<FileDataDB> | undefined = undefined;
     private async StartPreDownload(){
-        if(this._pomise_download) return;
+        if(this._pomise_pre_download) return;
 
         const fileid = this.filesID.pop();
         if(!fileid) return;
@@ -149,7 +157,7 @@ class DownloadStore{
             //todo: Пока что не знаю нужно ли обробатывать undefined.
         }).finally(()=>{
             //todo: ....
-            this._pomise_download = undefined;
+            this._pomise_pre_download = undefined;
             this.StartPreDownload();
         });
     }    
@@ -164,31 +172,34 @@ class DownloadStore{
         const file = this.files.find(f=>{return f.status ===  DownloadStatus.download})
         if(!file)return;
         if(!file.fileData.bufferID){
-            this.files = this.files.filter(f=>f !== file);            
+            this.files = this.files.filter(f=>f !== file);
+
             this.countDownload--;
             this.StartDownload();
             return;
         }
 
         file.status = DownloadStatus.downloading;
+        file.signalAbort = new AbortController();
 
         this.countDownload--;
         this.countDownloading++;
         
-
+        // console.log("Start DownloadFile promis: ",this._pomise_download);
         this._pomise_download = DownloadFile(file).then((res)=>{
             console.log("then res ",res);
             file.status = DownloadStatus.downloaded;
             this.countDownloaded++;
-            this.countDownloading--;
+            // this.countDownloading--;
             SaveFile(res, file.fileData.name);
-        }).catch(()=>{
+        }).catch((res:any)=>{
             file.status = DownloadStatus.download_error;
             this.countDownloadError++;
-            this.countDownloading--;
+            // this.countDownloading--;
         }).finally(()=>{
             file.timeEnd = Date.now();
-            // this.countDownloading--;
+            this.changePorydocFiles();
+            this.countDownloading--;
             this._pomise_download = undefined;
             this.StartDownload();
         });
@@ -203,6 +214,21 @@ const downloadStore = new DownloadStore();
 export default downloadStore;
 
 
+
+
+
+
+
+
+            
+            // if(file.status === DownloadStatus.download){
+            //     this.countDownload--;
+            // }
+            // else{
+            //     this.countDownloading--;
+            // }
+            // file.status = DownloadStatus.download_error;
+            // this.countDownloadError++;
 
 
 

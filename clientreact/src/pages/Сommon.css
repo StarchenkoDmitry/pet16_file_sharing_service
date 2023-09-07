@@ -26,6 +26,16 @@
 
 
 .block-right{
+  display: flex;
   margin: .4rem;
   flex: 1;
+}
+
+
+
+
+
+#root:is(.dark) .main-block{
+  background-color: var(--back_color1);
+  box-shadow: 0px 0px 20px 1px var(--dark_shadow_color);
 }

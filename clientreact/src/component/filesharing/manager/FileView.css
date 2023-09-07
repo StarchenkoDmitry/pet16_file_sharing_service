@@ -34,9 +34,10 @@
   text-overflow: ellipsis;
 }
 .filesList-item .size{
-  padding: .15625rem;
+  margin-left: 0.2em;
+  padding: .15625em;
   /* height: 1.5rem; */
-  width: 5.5rem;
+  width: 5.5em;
   text-align:end;
 
   box-shadow: 0px 0px 6px 4px #d2eaff;
@@ -81,92 +82,13 @@
 
 
 
-
-
-
-
-/* .glas-btn2{
-  padding: .1rem;
-
-  transition: all 150ms ease-in-out;
-  border: none;
-  background-color: #ffffff00;  
+#root:is(.dark) .filesList-item{
+  color: var(--color1);
+  background-color: var(--back_color1);
+  box-shadow: 0px 0px 20px 1px var(--dark_shadow_color);
 }
-
-.glas-btn2:hover {
-  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
-  transform: translate3d(0, 2px, 0);
+#root:is(.dark) .filesList-item .size{
+  color: var(--color1);
+  background-color: var(--back_color1);
+  box-shadow: 0px 0px 20px 1px var(--dark_shadow_color);
 }
-
-.glas-btn2:focus {
-  box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
-} */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .fileUpView{
-  display: flex;
-  margin: .25rem;
-  padding: .3rem;
-
-  border-radius: .5rem;
-
-  font-size: 1.125rem;
-  font-weight: 400;
-
-  color: #ffffff;
-  background-color: #0d5aff;
-}
-
-.fileUpView .name{  
-  flex: 1;
-  padding: .1rem .3rem;
-  border-radius: .3rem;
-  background-color: #44b3ff;
-}
-.fileUpView .size{
-  margin-left: .3rem;
-  padding: .1rem 1rem;
-  padding-left: 0;
-  padding-right: .1rem;
-  border-radius: .3rem;
-  background-color: gold;
-  width: 90px;
-}
-
-
-.fileUpView .cancel{
-  margin-left: .3rem;
-  border-radius: .3rem;
-  background-color: rgb(70, 30, 27);
-  width: 80px;
-}
-
-
-.fileUpView .download{
-  margin-left: .3rem;
-  border-radius: .3rem;
-  background-color: rgb(99 255 232);
-}
-
- */

@@ -44,11 +44,12 @@ export class UploadStore{
                 urlid:urlid,
                 urlIsExist: UrlIsExist.DONT_KNOW,
 
-                size:0,
-                loaded:0,
                 status:FileStatus.upload,
-                total:0,
-                procentUploaded:0
+
+                size:0,
+                uploadLoaded:0,
+                uploadSize:0,
+                uploadProc:0,
             }
             this.files.push(fu);
         });
@@ -79,7 +80,7 @@ export class UploadStore{
         }).finally(()=>{
             console.log("FINALLY");
             // this.clearUploaded(file);
-            this.ClearUploaded(file);
+            // this.ClearUploaded(file);
             this._promis34636 = undefined;
             this.StartUploadFiles();
         });

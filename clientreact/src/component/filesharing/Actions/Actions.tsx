@@ -80,18 +80,23 @@ export async function UploadFile(urlid:string,file:FileOnUpload):Promise<boolean
         
         const res = await axios.post(GetBackendURL(`/uploadfile/${newFileID}`), buffer,{
             withCredentials:true,
-            onUploadProgress:(event:AxiosProgressEvent)=>{
-                const ld = event.loaded;
-                const to = event.total ?? 0;
-                console.log("Leng:" ,ld, to);
-                file.loaded = ld;
-                // file.size = ld;
-                if(to > 0){
-                    const proc = Math.round(ld / to * 100);
-                    file.procentUploaded = proc;
+            onUploadProgress:(progressEvent:AxiosProgressEvent)=>{
+                // const ld = event.loaded;
+                // const to = event.total ?? 0;
+                // console.log("Leng:" ,ld, to);
+                // file.loaded = ld;
+                // // file.size = ld;
+                // if(to > 0){
+                //     const proc = Math.round(ld / to * 100);
+                //     file.procentUploaded = proc;
 
-                    if(file.onUpdateProcent) file.onUpdateProcent(proc,ld,to);
-                }
+                //     if(file.onUpdateProcent) file.onUpdateProcent(proc,ld,to);
+                // }
+                
+                file.uploadLoaded = progressEvent.loaded;
+                file.uploadSize = progressEvent.total || 0;
+                file.uploadProc = progressEvent.progress || 0;
+                console.log("onUploadProgress: ",progressEvent);
             }
         });
         console.log("UploadFile result data: ", res.data);

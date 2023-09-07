@@ -1,11 +1,16 @@
 import StartExpressServise from "./ExpressApp.js";
-
 // import {writeFile,readFileSync,existsSync}  from "fs";
-
 
 
 StartExpressServise();
 
+
+
+
+// console.log(process.env.DB_URL);
+// console.log(process.env.PORT);
+
+// console.log(typeof process.env.PORT);
 
 
 ////TEST URL 

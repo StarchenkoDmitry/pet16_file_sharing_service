@@ -32,14 +32,14 @@ const UploadPanel: FC = observer(()=>{
             <span className='name'>{f.file.name}</span>
             <div className='right'>
                 <progress className='upload-item-progress' 
-                    value={(f.procentUploaded*100).toString()} max="100"/>
+                    value={(f.uploadProc*100).toString()} max="100"/>
                 <button className='glas-btn1 cancle'>Cancle</button>
             </div>
         </div>
     </div>);
 
     return(
-        <div className='uploadPanel'
+        <div className='uploadPanel'    //none
         style={{display: countUp === 0 ? "none" : "block"}}>
             <div className='uploadPanel-head'>
                 <h3>Загрузка файлов </h3>

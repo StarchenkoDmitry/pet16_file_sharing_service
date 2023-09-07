@@ -38,14 +38,22 @@
 
 
 .filesList{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   margin: .5rem;
-
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
 }
 
-/* .filesList-head{
+
+.fileManager-empty{
+  display: flex;
+  flex:1;
+  justify-content: center;
+  align-items: center;
+
+  border-width: .25em;
+  border-style: dashed;
+  border-radius: 1em;
+  border-color: #d35eff70;
 }
-.filesList-head .name{
-} */
-
-

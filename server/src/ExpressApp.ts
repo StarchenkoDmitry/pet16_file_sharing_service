@@ -8,10 +8,11 @@ import fileUpload, { UploadedFile } from 'express-fileupload'
 import filesRouter from './routers/FilesRouter.js';
 import urlsRouter from './routers/UrlsRouter.js';
 import buffersRouter from './routers/BuffersRouter.js';
+import { PORT, SICKRET_COOKIES } from './config.js';
 
 
-const port: number = 3066;
-const SICKRET_COOKIES: string = "58568u56j9834096834986";
+const port: number = PORT;
+const SickretCookies: string = SICKRET_COOKIES;
 
 
 var app = express();
@@ -44,7 +45,7 @@ app.use(bodyParser.raw({
 }))
 
 
-app.use(cookieParser(SICKRET_COOKIES));
+app.use(cookieParser(SickretCookies));
 app.use(cors( { origin:true,  credentials: true}))
 
 

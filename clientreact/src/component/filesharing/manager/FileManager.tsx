@@ -48,19 +48,14 @@ const FileManagerComponent: FC =observer( ()=>{
         }
     }
 
-    const copyUrlid = ()=>{
-        // alert("Urlid was copy");
+    const copyUrlID = ()=>{
         const url = window.location.origin+"/upload/" + store.id;
         copy(url);
     }
 
-    const contentLoading = <div>
-        Content loading....
-    </div>
+    const contentLoading = <div>Content loading...</div>
 
-    const contentError = <div>
-        Error loading
-    </div>
+    const contentError = <div>Error loading</div>
 
     const content = !store.loaded?
             contentLoading
@@ -69,7 +64,7 @@ const FileManagerComponent: FC =observer( ()=>{
         :
     <>
         <div className='fileManager-head'>
-            <button className='glas-btn1 btn-urlid-copy' onClick={copyUrlid}>
+            <button className='glas-btn1 btn-urlid-copy' onClick={copyUrlID}>
                 {store.id}
                 <img src="/icon/copy.svg" alt="copy"/>
             </button>
@@ -116,109 +111,3 @@ export default function FileManager({id}:{id:string}){
             <FileManagerComponent></FileManagerComponent>
         </FilesStoreProvider>)
 }
-
-
-
-
-
-   {/* <label htmlFor="files" className="btn">Select Image</label>
-                <input type="file" id="files" name="file" multiple />
-
-        <input id="uploadInput"type="file" name="myFiles" onChange={updateSize} multiple />
-        selected files: <span id="fileNum">0</span>; total size:
-        <span id="fileSize">0</span> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import './FileManager.css';
-
-// import { FC, useEffect, useLayoutEffect, useState } from "react";
-// import { observer } from "mobx-react-lite";
-// import { FilesList } from "./FilesList";
-// import { FilesStore, FilesStoreProvider, useFilesStore } from '../stores/FilesStore';
-// import uploadStore from '../stores/UploadStore';
-// // import { FilesUpList } from "./upload/_old/FilesUpList";
-
-
-
-// const FileManagerComponent: FC = ()=>{
-//     // console.log("render UploadFilesComponent");
-//     const store = useFilesStore();    
-//     // console.log("UploadFiles id:",store.id);
-
-//     return (
-//         <div className="block-upload" onDrop={onDropHandler}  onDragOver={onDragOver}>
-//             {/* <FilesUpList files={uploadStore.filesOnUpload}></FilesUpList> */}
-//             <FilesList files={store.files}></FilesList>
-//         </div>
-//     )
-
-//     async function onDropHandler(event:any){
-//         event.stopPropagation();
-//         event.preventDefault();
-
-//         if(!event.dataTransfer) return;
-//         if(!event.dataTransfer.files) return;
-        
-//         const files = [...event.dataTransfer.files];
-        
-//         // if(files.length > 0){
-//         //     const f = CreateFileOnUpload(files[0])
-//         //     store.addFileOnUpload(f);
-//         // }
-
-//         files.forEach((f)=>{
-//             // store.addFileOnUpload(CreateFileOnUpload(f));
-//             uploadStore.addFiles(store.id,[f]);
-//         });
-//     }   
-
-//     async function onDragOver(event:any){
-//         event.stopPropagation();
-//         event.preventDefault();
-//     }
-// }
-
-
-// const FileManagerComponentObserver = observer(FileManagerComponent);
-
-// export default function FileManager({id}:{id:string}){
-//     // const [store] = useState(()=>{return new FilesStore(id)});
-//     const store = new FilesStore(id);
-//     useEffect(()=>{
-//         // console.log("Effect id: ", id);
-//         return ()=>{
-//             // console.log("end Effect id: ", id);
-//             store.DisposeClear();
-//         }
-//     })
-
-//     return(<FilesStoreProvider store={store}>
-//             <FileManagerComponentObserver></FileManagerComponentObserver>
-//         </FilesStoreProvider>)
-// }
-
-
-
-
-
