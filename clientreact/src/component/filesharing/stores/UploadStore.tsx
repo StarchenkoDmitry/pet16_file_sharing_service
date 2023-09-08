@@ -1,10 +1,7 @@
 import { makeAutoObservable } from "mobx";
-import { fileBlobToArrayBuffer_Promise } from "../utils/Utils";
-import { GetBackendURL } from "../../../common/Backend";
-import axios, { AxiosProgressEvent } from "axios";
 import { UploadFile } from "../Actions/Actions";
 import { FileOnUpload, FileStatus, IsFile, UrlIsExist } from "../Actions/Structures";
-import { AddFileInFilesStore, UpdateFilesStore } from "./FilesStore";
+import { AddFileInFilesStore } from "./FilesStore";
 
 
 export class UploadStore{
@@ -71,16 +68,14 @@ export class UploadStore{
         this._promis34636.then((res)=>{
             if(res){
                 file.status = FileStatus.uploaded;
-                // UpdateFilesStore(file.urlid);
                 AddFileInFilesStore(file);
             }
             else{
                 file.status = FileStatus.upload_error;
             }
         }).finally(()=>{
-            console.log("FINALLY");
-            // this.clearUploaded(file);
-            // this.ClearUploaded(file);
+            // console.log("FINALLY");
+            this.ClearUploaded(file);
             this._promis34636 = undefined;
             this.StartUploadFiles();
         });

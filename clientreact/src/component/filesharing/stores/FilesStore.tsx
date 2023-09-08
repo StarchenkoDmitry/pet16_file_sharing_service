@@ -1,8 +1,5 @@
 import { makeAutoObservable } from "mobx";
 import React from "react";
-import { UploadFile } from "../Actions/Actions";
-import axios from "axios";
-import { GetBackendURL } from "../../../common/Backend";
 import { FileDataDB, UrlDataDB } from "../../../common/Structures";
 import { DeleteFilePromise, GetFileDatasPromise, GetUrlInfoPromise } from "./Actions";
 import { FileOnUpload } from "../Actions/Structures";
@@ -31,7 +28,6 @@ export class FilesStore{
 
     constructor(id:string){
         this.id = id;
-        // console.log("Store ID: ",id);
         makeAutoObservable(this);
         
         this.Initial();
@@ -77,11 +73,7 @@ export class FilesStore{
             this._update_promis = GetUrlInfoPromise(this.id);
             this._update_promis.then((res)=>{
                 if(res){
-                    // this.filesID = res.filesID
-                    // this.JWTID = res.JWTID;
-                    // this.name  = res.name
                     this.setVariants(res.name,res.JWTID,res.filesID);
-                    // console.log("RES: ",this,res);
 
                     this.setLoaded(true);
                     this.setSuccesLoad(true);
@@ -89,9 +81,7 @@ export class FilesStore{
                     this.setLoadingStatus(LoadingStatus.loading);
                     this._update_promis = GetFileDatasPromise(this.filesID)
                     this._update_promis.then((res)=>{
-                        // console.log("GetFileDatasPromise RES: ",res);
                         if(res){
-                            // this.files = res;
                             this.setFiles(res);
                             this.setLoadingStatus(LoadingStatus.loaded);
                         }else{
@@ -111,15 +101,12 @@ export class FilesStore{
             });
         }
     }
-
-
     
     fileOnDelete: string[] = [];
     deleteFile(fileid:string){
         this.fileOnDelete.push(fileid);
         this.StartDeleteFilesWhile();
     }
-
     
     private _promis34636:Promise<any> | null = null;
     private async StartDeleteFilesWhile(){        
@@ -141,71 +128,13 @@ export class FilesStore{
             });
         }
     }
-
-    
-
-
-    
-    // addFileOnUpload(file:FileOnUpload){
-    //     this.filesOnUpload = [file,...this.filesOnUpload];
-    //     // console.log("addFileOnUpload: ",file);
-    //     // this.StartUploadWhile();
-    // }
-
-
-    // private _promis:Promise<any> | null = null;
-    // private async StartUploadWhile(){
-    //     if(this.id === "") return;
-    //     if(!this._promis){
-    //         const file = this.filesOnUpload.find((f)=>{return f.state === FileState.onupload})
-    //         if(!file)return;
-
-    //         file.state = FileState.uploading;
-            
-    //         this._promis = UploadFilePromise(this.id,file);
-    //         this._promis.then(()=>{
-    //             this._promis = null;
-    //             this.StartUploadWhile();
-    //             console.log("Test then");
-    //             this.UpdateInfo();//update info 
-    //         }).catch(()=>{
-    //             this._promis = null;
-    //             this.StartUploadWhile();
-    //             console.log("Test catch");
-    //         });
-    //     }
-    // }
-
-
-    // private __imp = 10;
-    // Impulse(){
-    //     this.__imp++;
-    //     console.log(`Inpulse(${this.__imp})`)
-    //     const [one,too] = this.filesOnUpload;
-    //     this.filesOnUpload = [too,one];
-    // }
 }
-
-//TODO: нужоо удалить этоооооо говно 
-// function UploadFilePromise(id:string,file:FileOnUpload){
-//     return new Promise(async (res:any,rej:any)=>{
-//         const result = await UploadFile(id,file);        
-//         file.state = result ? FileState.uploaded : FileState.upload_error;
-//         if(result){
-//             res()
-//         }
-//         else{
-//             rej();
-//         }
-//     });
-// }
 
 
 const FilesStoreContext: React.Context<FilesStore> = React.createContext(new FilesStore(""));
 
 
 interface FilesStoreProviderProps {
-    // children:any; //JSX.Element | JSX.Element[],
     children: React.ReactNode;
     store: FilesStore;
 }
@@ -216,8 +145,6 @@ export const FilesStoreProvider = ({ children, store }:FilesStoreProviderProps) 
         </FilesStoreContext.Provider>
     )
 }
- 
-
 /* Hook to use store in any functional component */
 export const useFilesStore = () => React.useContext(FilesStoreContext);
 

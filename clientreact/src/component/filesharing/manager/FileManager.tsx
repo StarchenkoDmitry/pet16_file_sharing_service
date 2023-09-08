@@ -1,6 +1,6 @@
 import './FileManager.css';
 
-import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { FC, useEffect, useLayoutEffect, useRef } from "react";
 import { observer } from "mobx-react-lite";
 import { FilesList } from "./FilesList";
 import { AddStore, FilesStore, FilesStoreProvider, LoadingStatus, RemoveStore, useFilesStore } from '../stores/FilesStore';
@@ -86,11 +86,6 @@ const FileManagerComponent: FC =observer( ()=>{
         </div>
     )
 });
-
-
-
-
-// const FileManagerComponentObserver = observer(FileManagerComponent);
 
 export default function FileManager({id}:{id:string}){
     // const [store] = useState(()=>{return new FilesStore(id)});

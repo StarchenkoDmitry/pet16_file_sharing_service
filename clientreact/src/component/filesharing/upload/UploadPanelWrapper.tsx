@@ -1,8 +1,6 @@
-import UploadPanel from './UploadPanel';
 import './UploadPanelWrapper.css';
 
-
-
+import UploadPanel from './UploadPanel';
 
 const UploadPanelWrapper = ()=>{
     return(
@@ -13,6 +11,4 @@ const UploadPanelWrapper = ()=>{
         </div>
     );
 }
-
-
 export default UploadPanelWrapper;

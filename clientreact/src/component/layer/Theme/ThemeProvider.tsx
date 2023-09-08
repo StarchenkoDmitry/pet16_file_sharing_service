@@ -47,6 +47,8 @@ const ThemeProvider = ({children}:Props)=>{
 }
 export default ThemeProvider;
 
+
+
 export function useTheme(){
     return useContext(ThemeContext);
 }

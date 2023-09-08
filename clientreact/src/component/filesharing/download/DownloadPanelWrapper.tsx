@@ -1,6 +1,6 @@
 import './DownloadPanelWrapper.css';
-import DownloadPanel from './DownloadPanel';
 
+import DownloadPanel from './DownloadPanel';
 
 const DownloadPanelWrapper = ()=>{
     return(

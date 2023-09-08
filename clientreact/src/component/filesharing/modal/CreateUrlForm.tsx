@@ -1,17 +1,14 @@
 import './CreateUrlForm.css';
 
-import { CSSProperties, useMemo, useRef, useState } from "react"
+import { useMemo, useState } from "react"
 import { CreateUrlWithName } from "../Actions/Actions"
 import { RandomName } from "../utils/Utils"
-
 
 
 export interface CreateUrlResult{
     created: boolean;
     urlid:string;
-    // error?:string;
 }
-
 
 interface Props{
     handleResult: (result:CreateUrlResult )=>void;

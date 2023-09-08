@@ -29,8 +29,8 @@
 .filesList-item .name{
   margin-right: auto;
 
-  white-space: nowrap; /* Запрещаем перенос строк */
-  overflow: hidden; /* Обрезаем все, что не помещается в область */
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 .filesList-item .size{

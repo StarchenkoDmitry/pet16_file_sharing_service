@@ -2,34 +2,26 @@ import './DownloadPanel.css';
 
 import { observer } from 'mobx-react-lite';
 import { CSSProperties, FC, useEffect, useState } from 'react';
-import downloadStore, { DownloadStatus } from '../stores/DownloadStore';
+import downloadStore from '../stores/DownloadStore';
 
 
-const TimeToClosePanel = 1500;
-
-const MaxRenderFiles = 2;  
+const TimeCloseDownloadPanel = 1500;
+const MaxRenderFiles = 2;
 
 const DownloadPanel: FC = observer(()=>{
-    // console.log("Rendering DownloadPanel");
     
     const [showPanel,setShowPanel] = useState(false);
     const countDown = downloadStore.getCountDownloadDownloading();
-    const countAllDownload = downloadStore.getCountDownloadDownloading();
     const countDownloaded = downloadStore.getCountDownloaded();
 
     const countALL = downloadStore.getCountAll();
-
-    // console.log("STATE: ",downloadStore.getCountDownload(),
-    // downloadStore.getCountDownloading(),
-    // downloadStore.getCountDownloaded(),
-    // downloadStore.getCountDownloadError());
 
     useEffect(()=>{
         if(countDown> 0 && !showPanel){ setShowPanel(true); }
 
         const timeoutId = countDown === 0 ? setTimeout(()=>{ 
             setShowPanel(false);
-        },TimeToClosePanel) : undefined;
+        },TimeCloseDownloadPanel) : undefined;
 
         return ()=>{
             clearTimeout(timeoutId);
@@ -67,6 +59,3 @@ const DownloadPanel: FC = observer(()=>{
     );
 });
 export default DownloadPanel;
-
-
-{/* <div className='downloadPanel' style={{ opacity: showPanel? 1: .1}} > */}

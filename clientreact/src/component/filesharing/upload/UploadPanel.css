@@ -47,10 +47,6 @@
 }
 
 .upload-item-progress{
-  /* display: block;
-  width: auto;
-  margin-top: 0.2rem; */
-
   display: block;
   /* margin-top: 0.2rem; */
   flex: 1;
@@ -60,7 +56,6 @@
 .upload-item-head  .name{
   font-size: 1rem;
 }
-
 
 
 

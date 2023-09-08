@@ -1,12 +1,7 @@
 import { makeAutoObservable } from "mobx";
-import { GetBackendURL } from "../../../common/Backend";
-import axios from "axios";
 import { SaveFile } from "../Actions/Actions";
 import { FileDataDB } from "../../../common/Structures";
-import api from "../../../api/api";
 import { DownloadFile, GetFileDataDB } from "./Actions";
-
-
 
 export enum DownloadStatus{
     download,
@@ -34,8 +29,8 @@ export interface DownloadData{
     onDownloadProgress?:EventOnDownloadProgress;
 }
 
-const TimeClinning = 100;
-const DeleteEnd = 2000;
+const TimeClinning = 200;
+const TimeDeleteEndFile = 2000;
 
 class DownloadStore{
     private countDownload = 0;
@@ -96,14 +91,13 @@ class DownloadStore{
 //#region Clinning
     private _promis_clinning :any = undefined;
     private Clinning(){
-        // console.log("Clinning files: ",this.files);
         const currentTime = Date.now();
 
         const fileOnDelet:DownloadData[] = [];
         this.files.forEach(f=>{
             if(f.status === DownloadStatus.downloaded || 
             f.status ===  DownloadStatus.download_error){
-                if(f.timeEnd + DeleteEnd < currentTime){
+                if(f.timeEnd + TimeDeleteEndFile < currentTime){
                     fileOnDelet.push(f);
                     if(f.status === DownloadStatus.downloaded){
                         this.countDownloaded--;
@@ -114,7 +108,6 @@ class DownloadStore{
             }
         });
         if(fileOnDelet.length>0){
-
             this.files = this.files.filter(f=>!fileOnDelet.includes(f))
         }
 
@@ -185,21 +178,19 @@ class DownloadStore{
         this.countDownload--;
         this.countDownloading++;
         
-        // console.log("Start DownloadFile promis: ",this._pomise_download);
         this._pomise_download = DownloadFile(file).then((res)=>{
             console.log("then res ",res);
             file.status = DownloadStatus.downloaded;
             this.countDownloaded++;
-            // this.countDownloading--;
             SaveFile(res, file.fileData.name);
         }).catch((res:any)=>{
             file.status = DownloadStatus.download_error;
             this.countDownloadError++;
-            // this.countDownloading--;
         }).finally(()=>{
             file.timeEnd = Date.now();
             this.changePorydocFiles();
             this.countDownloading--;
+
             this._pomise_download = undefined;
             this.StartDownload();
         });
@@ -212,238 +203,3 @@ class DownloadStore{
 
 const downloadStore = new DownloadStore();  
 export default downloadStore;
-
-
-
-
-
-
-
-
-            
-            // if(file.status === DownloadStatus.download){
-            //     this.countDownload--;
-            // }
-            // else{
-            //     this.countDownloading--;
-            // }
-            // file.status = DownloadStatus.download_error;
-            // this.countDownloadError++;
-
-
-
-
-
-
-// interface DownloadResult{
-//     buffer: Buffer;
-//     fileInfo: FileDataDB;
-// }
-
-// export async function DownloadFileOld(file:DownloadData):Promise<DownloadResult | undefined>{
-//     return new Promise(async(resolve,reject)=>{
-//         try {
-//             const res = await axios.get(GetBackendURL(`/fileinfo/${file.fileid}`),{ withCredentials:true, });
-//             console.log("DownloadFile res: ",res);
-//             if(res.status !== 200){
-//                 resolve(undefined);
-//                 return;
-//             }
-//             const fileInfo = res.data as FileDataDB;
-//             if(!fileInfo.bufferID){
-//                 resolve(undefined);
-//                 return;
-//             }
-            
-//             const res2 = await axios.get(GetBackendURL(`/downloadfile/${fileInfo.bufferID}`),{
-//                 withCredentials:true,responseType: 'arraybuffer',
-//                 onDownloadProgress(progressEvent) {
-//                     file.downloadLoaded = progressEvent.loaded;
-//                     file.downloadSize = progressEvent.total || 0;
-//                     file.downloadProc = progressEvent.progress || 0;
-//                     console.log("onDownloadProgress: ",progressEvent);
-//                 },
-//             });
-
-//             if(res2.status === 200){
-//                 resolve({
-//                     fileInfo: fileInfo,
-//                     buffer: res2.data as Buffer,
-//                 });
-//                 return;
-//             }else{                
-//                 resolve(undefined);
-//                 return;
-//             }
-//         } catch (error) {        
-//             console.log("DownloadFileOld error: ",error);
-//             reject("3698304683946893486348963496");
-//         }
-//     });
-// }
-
-
-
-
-
-
-// private _pomise_download: any = undefined;
-// private async StartDownload(){
-//     if(this._pomise_download) return;
-
-//     const file = this.files.find(f=>{return f.status ===  DownloadStatus.downLoad})
-//     if(!file)return;
-
-//     this._pomise_download = DownloadFile(file).then((res)=>{
-//         // console.log("DownloadFile buffer: ",res);
-//         if(res){
-//             file.status = DownloadStatus.downloaded;
-//             SaveFile(res.buffer,res.fileInfo.name);
-//         }
-//         else{
-//             file.status = DownloadStatus.download_error;
-//         }                
-//     }).catch(()=>{
-//         file.status = DownloadStatus.download_error;
-//     }).finally(()=>{
-//         this._pomise_download = undefined;
-//         this.StartDownload();
-//     });
-    
-
-//     if(!this._pomise_download){
-//         const file = this.files.find(f=>{return f.status ===  DownloadStatus.downLoad})
-//         if(!file)return;
-
-//         // console.log("StartDownload file:",file);
-//         file.status = DownloadStatus.downloading;
-
-//         this._pomise_download = DownloadFile(file).then((res)=>{
-//             // console.log("DownloadFile buffer: ",res);
-//             if(res){
-//                 file.status = DownloadStatus.downloaded;
-//                 SaveFile(res.buffer,res.fileInfo.name);
-//             }
-//             else{
-//                 file.status = DownloadStatus.download_error;
-//             }                
-//         }).catch(()=>{
-//             file.status = DownloadStatus.download_error;
-//         }).finally(()=>{
-//             this._pomise_download = undefined;
-//             this.StartDownload();
-//         });
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // downloadFile(fileid:string):boolean{
-    //     const f = this.files.find(v=>v.fileid === fileid);
-    //     if(!f){
-    //         this.files.push({
-    //             fileid:fileid,
-    //             status:DownloadStatus.downLoad,
-    //             downloadLoaded:0,downloadSize:0,downloadProc:0,
-    //         });
-    //     }
-    //     // console.log(`downloadFile (${fileid})`);
-    //     this.StartDownload();
-    //     return f === undefined;
-    // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// fileIsDownloading(fileid:string):boolean{
-    //     if(fileid){
-    //         const file = this.files.find(f=>{return f.fileid === fileid;});
-    //         return file ? file.status === DownloadStatus.downloading : false;
-    //     }else return false;
-    // }
-
-
-
-
-
-
-
-
-
-// const res = await axios.get(GetBackendURL(`/downloadfile/${file.fileid}`),{
-//     withCredentials:true,
-//     responseType: 'arraybuffer'
-// });
-
-
-
-
-
-// downloadFile(fileid:string){
-//     if(fileid){
-//         this.filesid.push(fileid);
-//     }
-//     console.log(`downloadFile (${fileid})`);
-// }
-
-// fileIsDownloading(fileid:string):boolean{
-//     if(fileid){
-//         return this.filesid.includes(fileid);
-//     }else return false;
-// }
-
-
-
-
-
-
-    // fileIsDownloading(fileid:string):boolean{
-    //     if(fileid){
-    //         const file = this.files.find(f=>{return f.fileid === fileid;});
-    //         return file !== undefined;
-    //     }else return false;
-    // }
-
-
-
-
-
-
-
-
-
-
-    
-        // console.log('test2', Date.now())
-
-        // this.files = this.files.filter(f=>{
-        //     if(f.status === DownloadStatus.downloaded || 
-        //     f.status ===  DownloadStatus.download_error){
-        //         return f.timeEnd + DeleteEnd < currentTime;
-        //     }
-        //     else{
-        //         return false;
-        //     }
-        // })

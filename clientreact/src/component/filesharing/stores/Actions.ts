@@ -1,4 +1,3 @@
-import axios from "axios";
 import { GetBackendURL } from "../../../common/Backend";
 import { FileDataDB, UrlDataDB } from "../../../common/Structures";
 import { DownloadData } from "./DownloadStore";
@@ -9,11 +8,8 @@ import { URL_GET_FILEDATADB } from "../../../common/Constanter";
 export function GetUrlInfoPromise(urlid:string):Promise<UrlDataDB | undefined>{
     return new Promise(async(res,rej)=>{
         try {
-            // console.log("GetInfo");
-            const result = await axios.get(GetBackendURL(`/info_url/${urlid}`),{
-                withCredentials:true,
-            });
-            // console.log("GetInfo result",result);
+            const result = await api.get(GetBackendURL(`/info_url/${urlid}`));
+
             if(result.status === 200){
                 const urldata = result.data;
                 res(urldata);
@@ -30,11 +26,7 @@ export function GetUrlInfoPromise(urlid:string):Promise<UrlDataDB | undefined>{
 export function GetFileDatasPromise(filesid:string[]):Promise<FileDataDB[] | undefined>{
     return new Promise(async(res,rej)=>{
         try {
-            // console.log("GetFileDatasPromise");
-            const result = await axios.post(GetBackendURL(`/filesinfo`),{filesid},{
-                withCredentials:true,
-            });
-            // console.log("GetFileDatasPromise result",result);
+            const result = await api.post(GetBackendURL(`/filesinfo`),{filesid});
             if(result.status === 200){
                 const urldata = result.data.files;
                 res(urldata);
@@ -49,29 +41,23 @@ export function GetFileDatasPromise(filesid:string[]):Promise<FileDataDB[] | und
     });
 }
 
-
 //todo доделать
 export function DeleteFilePromise(urlid:string, fileid:string):Promise<boolean>{
     return new Promise(async(res,rej)=>{
-        console.log("DeleteFilePromise");
-        const result = await axios.post(GetBackendURL(`/deletefile`),{
-            urlid: urlid,
-            fileid: fileid,
-        },{
-            withCredentials:true,
-        });
-        console.log("DeleteFilePromise result",result);
-
-
-        if(result.status === 200){
-            res(true);
-        }
-        else{
+        try {
+            const result = await api.post(GetBackendURL(`/deletefile`),{urlid: urlid, fileid: fileid,});
+            if(result.status === 200){
+                res(true);
+            }
+            else{
+                res(false);
+            }
+        } catch (error) {
+            console.log("DeleteFilePromise error: ",error);
             res(false);
-        }
+        }        
     });
 }
-
 
 export function DownloadFile(file:DownloadData):Promise<Buffer> {
     return new Promise<Buffer>(async(resolve,reject)=>{
@@ -117,10 +103,9 @@ export async function GetFileDataDB(fileid:string):Promise<FileDataDB>{
     return new Promise( async (res,rej)=>{
         try {
             const result = await api.get(`${URL_GET_FILEDATADB}${fileid}`);
-            // console.log("GetFileDataDB result: ",result);
             result.status === 200? res(result.data) : rej();
         } catch (error) {
-            console.log("GetFileDataDB -98462-486-2865-4 error: ",error);
+            console.log("GetFileDataDB error: ",error);
             rej();
         }
     });
