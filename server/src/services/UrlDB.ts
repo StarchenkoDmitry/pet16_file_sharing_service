@@ -79,11 +79,29 @@ class UrlDB{
         }
     }
 
+    private async WhileDeleteFiles(filesID:string[]) {
+        filesID.forEach(async f=>{
+            console.log(`Start delete fileid: ${f}`);
+            const deleted =  await fileDB.Remove(f);
+            console.log(`End   delete fileid: ${f} deleted:${deleted}`);
+        });
+    }
     
     async Delete(urlid:string):Promise<boolean>{
         try {
-            const result= await urlsCollection.deleteOne({_id:new ObjectId(urlid)});
-            return result.acknowledged;
+            const rawDoc = await urlsCollection.findOne({_id:new ObjectId(urlid)});
+            if(!rawDoc){
+                console.log(`FileDB Delete(urlid:${urlid}) rawDoc is null`)
+                return false;
+            }
+            else{
+                const {_id,...doc} = rawDoc;
+                const urlData = doc as UrlDataDB;
+                this.WhileDeleteFiles(urlData.filesID);
+
+                const result= await urlsCollection.deleteOne({_id:new ObjectId(urlid)});
+                return result.acknowledged;
+            }
         } catch (error) {
             console.log("FileDB DeleteFile 568565468: ", error)
             return false;

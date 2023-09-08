@@ -9,7 +9,7 @@ class BufferDB{
         try {
             const doc = await buffersCollection.findOne({_id:new ObjectId(id)});
             if(!doc){ return; } 
-            else { 
+            else {
                 return {
                     id: doc._id.toString(),
                     buffer: doc.buffer,

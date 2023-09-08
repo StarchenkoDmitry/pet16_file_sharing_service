@@ -87,7 +87,7 @@ buffersRouter.post("/uploadfile/:fileid",async function(req:Request, res:Respons
 buffersRouter.get("/downloadfile/:bufferid",async function(req:Request, res:Response)  {
     try{
         const bufferid = req.params.bufferid;
-        console.log(`/downloadfile/${bufferid}`);
+        // console.log(`/downloadfile/${bufferid}`);
 
         if(typeof bufferid !== "string"){
             res.status(350).json({error:"bufferid is not string"});
@@ -117,7 +117,7 @@ buffersRouter.get("/downloadfile/:bufferid",async function(req:Request, res:Resp
             return Buffer.from([...c,...Buffer.from(p.buffer.buffer)]);
         },init);
        
-        res.status(200).json(sborka);
+        res.status(200).send(sborka);
     }catch(error){
         console.log("/downloadfile/:bufferid error: ",error);
         res.status(500).json({error:"error"});

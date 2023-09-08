@@ -179,7 +179,7 @@ class DownloadStore{
         this.countDownloading++;
         
         this._pomise_download = DownloadFile(file).then((res)=>{
-            console.log("then res ",res);
+            // console.log("then res ",res);
             file.status = DownloadStatus.downloaded;
             this.countDownloaded++;
             SaveFile(res, file.fileData.name);
