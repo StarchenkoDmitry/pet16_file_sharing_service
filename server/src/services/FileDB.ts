@@ -1,6 +1,7 @@
 import { Binary, ObjectId, ReturnDocument } from "mongodb";
 import { FileBufferDataDB, FileDataDB } from "../common/Structures";
 import db from "./db/db.js";
+import bufferDB from "./BufferDB.js";
 
 
 const filesCollection = await db.collection("files");
@@ -24,19 +25,31 @@ class FileDB{
         }
     }
 
-    async Remove(id:string):Promise<boolean>{
+    async Remove(fileid:string):Promise<boolean>{
         try {
-            const result = await filesCollection.deleteOne({_id:new ObjectId(id)});
-            return result.acknowledged;
+            const result = await filesCollection.findOne({_id:new ObjectId(fileid)});
+            if(!result) return false;
+
+            const bufID = (result as unknown as FileDataDB).bufferID;
+            if(bufID){
+                const deletedBuffers = await bufferDB.Delete(bufID);
+                if(!deletedBuffers)
+                    console.log(`FileDB Remove(fileid:${fileid}) error: bufferDB.Delete(${bufID}) deletedBuffers is false`);
+            }else{
+                console.log(`FileDB Remove(fileid:${fileid}) error: bufID is null`);
+            }
+
+            const result2 = await filesCollection.deleteOne({_id:new ObjectId(fileid)});
+            return result2.acknowledged;
         } catch (error) {
-            console.log("FileDB Remove 56756858548: ", error)
+            console.log("FileDB Remove error: ", error)
             return false;
         }
     }
     
     async Add(file:FileDataDB):Promise<boolean>{
         try {
-            const {id , ...filedata} = file;
+            const {id: fileid , ...filedata} = file;
             const result = await filesCollection.insertOne(filedata);
             if(result.acknowledged){
                 file.id = result.insertedId.toString();
@@ -51,13 +64,11 @@ class FileDB{
     async ChangeBufferID(fileID:string,bufferid:string):Promise<boolean>{
         try {
             const result = await filesCollection.findOne({_id:new ObjectId(fileID)});
-            // console.log("ChangeBufferID result: ",result);
             if(result) {
                 const {_id,...doc} = result;
                 const nDoc = doc as FileDataDB;
                 nDoc.bufferID = bufferid;
                 const result2 = await filesCollection.replaceOne({_id:new ObjectId(_id.toString())}, nDoc);
-                // console.log("ChangeBufferID result2: ",result2);
                 return result2.acknowledged;
             }else{
                 return false;
@@ -70,58 +81,3 @@ class FileDB{
 }
 const fileDB = new FileDB(); 
 export default fileDB;
-
-
-
-
-
-
-
-// function ValidyFileData(f:FileData):boolean{
-//     return (f.id !== null && Number.isInteger(f.size))
-// }
-//Binary
-
-
-
-
-
-
-
-// const canvasDB = await db.collection("canvas");
-
-
-// export async function GetCanvas(id:string) : Promise<CanvasData>
-// {
-//     const canvas = await canvasDB.findOne({_id:new ObjectId(id)});
-//     // console.log(canvas);
-//     return canvas as CanvasData;
-// }
-
-// export async function GetNames():Promise<CanvasData[]>
-// {
-//     const canvas = await canvasDB.find({});
-//     let listCanvas:CanvasData[] = [];
-//     await canvas.forEach(d => {
-//         listCanvas.push({_id:d._id,name:d.name,colomns:d.colomns? d.colomns:[]});
-//     });
-//     return listCanvas; 
-// }
-
-// export async function CreateCanvas(canv:CanvasData):Promise<CanvasData>
-// {
-//     const canvas = await canvasDB.insertOne(canv);
-//     console.log("Created: ", canv);
-//     console.log(canvas);
-//     return canv; 
-// }
-
-
-
-
-
-// // console.log("Count: ",await canvasDB.estimatedDocumentCount())
-
-
-
-

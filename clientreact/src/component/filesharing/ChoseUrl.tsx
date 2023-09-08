@@ -81,8 +81,8 @@ export default function ChoseUrl() {
         </div>
     )
 
-    const renderList  = loadState === LoadingState.loading ? <div>Loading</div> 
-    : loadState === LoadingState.error || !urlsinfo ? <div>ERROR LOADING</div> 
+    const renderList  = loadState === LoadingState.loading ? <div className='loading'><span>Loading</span></div> 
+    : loadState === LoadingState.error || !urlsinfo ? <div className='error'><span>Error loading</span></div> 
     : urlsinfo ? 
         rendList(urlsinfo)
     : <div>Url is not esxit.</div>;

@@ -1,4 +1,6 @@
 .choseurl{
+  display: flex;
+  flex-direction: column;
   flex: 1;
   padding: .5rem;
   
@@ -9,6 +11,11 @@
   box-shadow: 0px 0px 20px 1px #d2daff;
 }
 
+.choseurl nav{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 
 .choseurl .choseurl-head{
   display: flex;
@@ -78,6 +85,36 @@
 
 
 
+
+
+.choseurl .loading{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+.choseurl .error{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+
+  border-width: .25em;
+  border-style: dashed;
+  border-radius: 1em;
+  border-color: #ff4a4a;
+}
+
+.choseurl .loading span{
+  font-family: "JetBrains Mono",monospace;
+  padding: .25rem;
+}
+.choseurl .error span{
+  font-family: "JetBrains Mono",monospace;
+  padding: .25rem;
+}
 
 
 

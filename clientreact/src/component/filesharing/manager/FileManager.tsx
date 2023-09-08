@@ -53,9 +53,14 @@ const FileManagerComponent: FC =observer( ()=>{
         copy(url);
     }
 
-    const contentLoading = <div>Content loading...</div>
+    const contentLoading = <div className='loading'>
+                                <span>Content loading...</span>
+                            </div>
 
-    const contentError = <div>Error loading</div>
+    const contentError = <div className='error'>
+                            <span>Error loading</span>
+                            <span>Reload the page.</span>
+                        </div>
 
     const content = !store.loaded?
             contentLoading

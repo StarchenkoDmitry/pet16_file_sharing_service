@@ -1,15 +1,9 @@
 import { Request, Response, Router } from "express";
-import { JWT_middlware } from "./Middlware/Auth.js";
+import { JWT_middlware } from "./Middlware/JWT.js";
 import { FileBufferDataDB } from "../common/Structures.js";
 import bufferDB from "../services/BufferDB.js";
 import fileDB from "../services/FileDB.js";
-import { MAX_FILE_SIZE, MIB } from "../common/Constanter.js";
-
-
-// const SIZE_BUFFERCHANK = 1024;// 4 * MIB;
-// const SIZE_BUFFERCHANK = 1 * MIB;
-const SIZE_BUFFERCHANK = 2 * MIB;
-
+import { MAX_FILE_SIZE, MIB, SIZE_BUFFERCHANK } from "../common/Constanter.js";
 
 const buffersRouter = Router()
 buffersRouter.use(JWT_middlware);
@@ -17,9 +11,18 @@ buffersRouter.use(JWT_middlware);
 buffersRouter.post("/uploadfile/:fileid",async function(req:Request, res:Response)  {
     try{
         const fileid = req.params.fileid;
-        console.log(`/uploadfile/${fileid}`);
+        // console.log(`/uploadfile/${fileid}`);
+        if(typeof fileid !== "string"){
+            res.status(350).json({error:"fileid is not string"});
+            return;
+        }
 
         const buffer = req.rawBody;
+        if(!Buffer.isBuffer(buffer)){
+            res.status(350).json({error:"buffer is not Buffer"});
+            return;
+        }
+
         if(buffer.byteLength >= MAX_FILE_SIZE){
             res.status(300).json({error:"buffer length bigger then MAX_FILE_SIZE"});
             return;
@@ -66,7 +69,7 @@ buffersRouter.post("/uploadfile/:fileid",async function(req:Request, res:Respons
         if(!firstBufferData) throw "error: firstBufferData is undefined. 34790967348086";
         
         const changerd = await fileDB.ChangeBufferID(fileid,firstBufferData.id as string);
-        console.log("fileDB.ChangeBufferID result: ",changerd);
+        // console.log("fileDB.ChangeBufferID result: ",changerd);
 
         if(changerd){
             res.status(200).json({bufferid:firstBufferData.id as string});
@@ -85,6 +88,11 @@ buffersRouter.get("/downloadfile/:bufferid",async function(req:Request, res:Resp
     try{
         const bufferid = req.params.bufferid;
         console.log(`/downloadfile/${bufferid}`);
+
+        if(typeof bufferid !== "string"){
+            res.status(350).json({error:"bufferid is not string"});
+            return;
+        }
 
         const bufferDataList :FileBufferDataDB[] = [];   
 
@@ -108,13 +116,11 @@ buffersRouter.get("/downloadfile/:bufferid",async function(req:Request, res:Resp
         const sborka = bufferDataList.reduce((c,p)=>{
             return Buffer.from([...c,...Buffer.from(p.buffer.buffer)]);
         },init);
-
-        // console.log("downloadfile sborka: ", sborka);
        
-        res.status(200).send(sborka);
+        res.status(200).json(sborka);
     }catch(error){
-        console.log("downloadfile error: ",error);
-        res.status(500).json({error:"34923046024862946"});
+        console.log("/downloadfile/:bufferid error: ",error);
+        res.status(500).json({error:"error"});
     }    
 });
 
